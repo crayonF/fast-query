@@ -1,0 +1,20 @@
+{
+  "name": "fast-query",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "fq": "./bin/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "crayonF",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^8.3.0",
+    "ini": "^2.0.0"
+  }
+}
