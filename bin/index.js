@@ -25,6 +25,11 @@ program
   .action(fq.onDelete)
 
 program
+  .command('edit <name> <url>')
+  .description(chalk.blue('修改快捷网页'))
+  .action(fq.onEdit)
+
+program
   .description(chalk.blue('快速在浏览器打开网页并支持在搜索引擎中搜索'))
   .option('-g, --github', '打开github')
   .option('-b, --baidu', '打开百度搜索')

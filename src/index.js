@@ -54,6 +54,15 @@ export default {
     await writeFile(FQRC, webs)
     printSuccess(`删除 '${name}' 成功`)
   },
+  async onEdit (name, url) {
+    if (await isNameNotFound(name) || await isInternalName(name)) {
+      return
+    }
+    const webs = await getInternalWebs()
+    webs[name]['url'] = url
+    await writeFile(FQRC, webs)
+    printSuccess(`修改 '${name}' 成功`)
+  },
   async onOpen (type, params) {
     if (JSON.stringify(type) === '{}') {
       const webs = await getInternalWebs()

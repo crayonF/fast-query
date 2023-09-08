@@ -35,6 +35,7 @@ async function writeFile(path, content) {
   })
 }
 
+// 获取所有已配置地址
 async function getInternalWebs () {
   const customWebs = await readFile(FQRC)
   return Object.assign({}, WEBS, customWebs)
@@ -90,7 +91,7 @@ async function isNameNotFound (name) {
 
 async function isInternalName (name) {
   if (Object.keys(WEBS).includes(name)) {
-    printError(`不可删除内置地址`)
+    printError(`不可删除或修改内置地址`)
     return true
   }
   return false
