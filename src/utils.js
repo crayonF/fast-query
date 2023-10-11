@@ -41,6 +41,7 @@ async function getInternalWebs () {
   return Object.assign({}, WEBS, customWebs)
 }
 
+// 对多参数空格处理
 function handleKeywords (wds) {
   let keyword = ''
   if (wds.length > 1) {

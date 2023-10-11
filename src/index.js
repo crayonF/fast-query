@@ -17,6 +17,24 @@ import {
 export default {
   url: 'https://www.baidu.com/',
   keywords: '',
+  queryInWebList: {
+    baidu: (_this, wd) => {
+      _this.url = "https://www.baidu.com/"
+      _this.keywords = wd ? `s?wd=${wd}` : ''
+    },
+    github: (_this, wd) => {
+      _this.url = 'https://github.com/'
+      _this.keywords = wd ? `search?q=${wd}` : ''
+    },
+    google: (_this, wd) => {
+      _this.url = "https://www.google.com/"
+      _this.keywords = wd ? `search?q=${wd}` : ''
+    },
+    youdao: (_this, wd) => {
+      _this.url = "https://www.youdao.com/"
+      _this.keywords = wd ? `result?word=${wd}"&"lang=en` : ''
+    }
+  },
 
   async onList () {
     const webs = await getInternalWebs()
@@ -72,7 +90,8 @@ export default {
         this.openWebDirect(webs[webName]['url'])
       } else {
         const keywords = handleKeywords(params)
-        this.goBaidu(keywords)
+        this.queryInWebList['baidu'](this, keywords)
+        this.openBrowser()
       }
     } else {
       this.queryInWeb(type, params)
@@ -85,27 +104,8 @@ export default {
   },
   queryInWeb (web, wds) {
     const keywords = handleKeywords(wds)
-    if (web.Baidu !== undefined) {
-      this.goBaidu(keywords)
-    } else if (web.github !== undefined) {
-      this.goGithub(keywords)
-    } else if (web.google !== undefined) {
-      this.goGoogle(keywords)
-    }
-  },
-  goBaidu (wd) {
-    this.url = "https://www.baidu.com/"
-    this.keywords = wd ? `s?wd=${wd}` : ''
-    this.openBrowser()
-  },
-  goGithub (wd) {
-    this.url = 'https://github.com/'
-    this.keywords = wd ? `search?q=${wd}` : ''
-    this.openBrowser()
-  },
-  goGoogle (wd) {
-    this.url = "https://www.google.com/"
-    this.keywords = wd ? `search?q=${wd}` : ''
+    const type = Object.keys(web)[0]
+    this.queryInWebList[type](this, keywords)
     this.openBrowser()
   },
   openBrowser () {

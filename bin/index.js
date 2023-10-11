@@ -34,6 +34,7 @@ program
   .option('-g, --github', '打开github')
   .option('-b, --baidu', '打开百度搜索')
   .option('-G, --google', '打开谷歌搜索')
+  .option('-y, --youdao', '打开网易有道翻译')
   .action((Option, { args }) => {
     fq.onOpen(Option, args)
   })
@@ -45,6 +46,7 @@ program.on('--help', () => {
   console.info('    fq [question]   ', chalk.blue('  打开百度搜索'))
   console.info('    fq [question] -g', chalk.blue('  打开github搜索'))
   console.info('    fq [question] -G', chalk.blue('  打开谷歌搜索'))
+  console.info('    fq [question] -y', chalk.blue('  打开网易有道翻译'))
 })
 
 program.parse(process.argv)
