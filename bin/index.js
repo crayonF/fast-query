@@ -3,6 +3,7 @@ import chalk from 'chalk'
 import { program } from 'commander'
 import fq from '../src/index.js'
 import { createRequire } from 'module'
+import { onTranslate } from '../src/translate.js'
 
 const require = createRequire(import.meta.url)
 const packageJson = require('../package.json')
@@ -35,8 +36,14 @@ program
   .option('-b, --baidu', '打开百度搜索')
   .option('-G, --google', '打开谷歌搜索')
   .option('-y, --youdao', '打开网易有道翻译')
+  .option('-t, --translate')
   .action((Option, { args }) => {
-    fq.onOpen(Option, args)
+    const opt = Object.keys(Option)[0]
+    if (opt === 'translate') {
+      onTranslate(args)
+    } else {
+      fq.onOpen(Option, args)
+    }
   })
 
 // 命令帮助说明
@@ -47,6 +54,7 @@ program.on('--help', () => {
   console.info('    fq [question] -g', chalk.blue('  打开github搜索'))
   console.info('    fq [question] -G', chalk.blue('  打开谷歌搜索'))
   console.info('    fq [question] -y', chalk.blue('  打开网易有道翻译'))
+  console.info('    fq [word] -t', chalk.blue('  直接网易有道翻译'))
 })
 
 program.parse(process.argv)
